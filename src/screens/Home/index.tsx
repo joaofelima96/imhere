@@ -1,12 +1,18 @@
 import React from "react"
 import { StatusBar, Text, View, TextInput, TouchableOpacity } from "react-native"
 
+import { Participant } from "../components/Participant"
+
 import { styles } from "./styles"
 
 export function Home() {
 
     function handleParticipantAdd() {
         console.log("você clicou no botão")
+    }
+
+    function handleParticipantRemove(name: string) {
+        console.log(`você clicou em remover o participante ${name}`)
     }
 
     return (
@@ -28,6 +34,8 @@ export function Home() {
                     </Text>
                 </TouchableOpacity>
             </View>
+
+            <Participant name="Rodrigo" onRemove={() => handleParticipantRemove("Rodrigo")} />
         </View>
     )
 }
