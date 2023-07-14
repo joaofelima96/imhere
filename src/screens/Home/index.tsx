@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Text, View, TextInput, TouchableOpacity, FlatList, Alert } from "react-native"
 
 import { Participant } from "../components/Participant"
@@ -6,12 +6,24 @@ import { Participant } from "../components/Participant"
 import { styles } from "./styles"
 
 export function Home() {
-    const participants = ["Rodrigo", "Vini", "Diego", "Biro", "Ana", "Isa", "Jack", "Mayk", "João"]
+
+    // cria uma string vazia com valor inicial nulo
+    const [participants, setParticipants] = useState<string[]>([]);
+
+    // cria uma constante que guarda o nome dos participantes
+    const [participantName, setParticipantName] = useState("");
 
     function handleParticipantAdd() {
-        if (participants.includes("Rodrigo")) {
+        if (participants.includes(participantName)) {
             return Alert.alert("Participante existente", "Já existe um participante na lista com esse nome")
         }
+
+        // quando clico no botão, mudo o estado do meu array, adicionando a pessoa que escrevi no input
+        setParticipants(prevState => [...prevState, participantName])
+
+        // mudo o valor de participantName para nulo e utilizo esse valor no "value" do meu input
+        // para que depois de adicionar o nome ao array ele limpe meu input
+        setParticipantName("");
     }
 
     function handleParticipantRemove(name: string) {
@@ -37,6 +49,10 @@ export function Home() {
                     style={styles.input}
                     placeholder="Nome do participante"
                     placeholderTextColor={"#6b6b6b"}
+                    // passo o texto digitado no input para a função que muda o estado de participantName
+                    onChangeText={setParticipantName}
+                    // atribuo o valor de participantName ao input, que após ser adicionado no array, ficará nulo
+                    value={participantName}
                 />
 
                 <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
