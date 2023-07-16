@@ -15,15 +15,16 @@ export function Home() {
 
     function handleParticipantAdd() {
         if (participants.includes(participantName)) {
-            return Alert.alert("Participante existente", "Já existe um participante na lista com esse nome")
-        }
+            Alert.alert("Participante existente", "Já existe um participante na lista com esse nome")
+            setParticipantName("")
+        } else {
+            // quando clico no botão, mudo o estado do meu array, adicionando a pessoa que escrevi no input
+            setParticipants(prevState => [...prevState, participantName])
 
-        // quando clico no botão, mudo o estado do meu array, adicionando a pessoa que escrevi no input
-        setParticipants(prevState => [...prevState, participantName])
-
-        // mudo o valor de participantName para nulo e utilizo esse valor no "value" do meu input
-        // para que depois de adicionar o nome ao array ele limpe meu input
-        setParticipantName("");
+            // mudo o valor de participantName para nulo e utilizo esse valor no "value" do meu input
+            // para que depois de adicionar o nome ao array ele limpe meu input
+            setParticipantName("")
+        };
     }
 
     function handleParticipantRemove(name: string) {
