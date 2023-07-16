@@ -30,7 +30,13 @@ export function Home() {
         Alert.alert("Remover", `Remover o participante ${name}?`, [
             {
                 text: "Sim",
-                onPress: () => Alert.alert("Deletado!")
+                // no momento em que a opção "sim" do alerta for pressionada
+                // é chamada a função que atualiza o array de participants
+                // com isso, é aplicado um filtro do estado atual desse array (prevState)
+                // posteriormente, predimos para ele realizar uma lógica de retornar
+                // apenas os nomes que são diferentes do nome que queremos excluir
+                // OBS: Esse nome é pego a partir do botão clicado ao lado do nome
+                onPress: () => setParticipants(prevState => prevState.filter(participant => participant !== name))
             },
             {
                 text: "Não",
